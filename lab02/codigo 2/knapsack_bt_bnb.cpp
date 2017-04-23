@@ -46,14 +46,6 @@ void qsort(vector<int>& P, vector<int>& W, vector<int>& C, int left, int right) 
   qsort(P, W, C, midpoint + 1, right);
 }
 
-// TODO remover
-void printVector(vector<int>& A) {
-  for (int i = 0; i < A.size(); i++) {
-    cout << A[i] << " ";
-  }
-  cout << endl;
-}
-
 bool is_new_class(int item, vector<int> &c, vector<int> temp) {
 	// there is no item in the sack
 	if (temp.empty()) {
