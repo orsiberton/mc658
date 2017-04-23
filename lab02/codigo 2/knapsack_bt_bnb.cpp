@@ -113,12 +113,14 @@ void branch_and_bound(int index, int current_weight, int current_value, int max_
 	}
 
 	int new_weight = current_weight + w[index];
+	int item_weight = w[index];
 	// check if is necessary to add the division
 	if (is_new_class(index, c, current_items)) {
 		new_weight += d;
+		item_weight += d;
 	}
 
-	float best_until_now = current_value + ((max_weight - current_weight) * (p[index]/(double) w[index]));
+	float best_until_now = current_value + ((max_weight - current_weight) * (p[index]/(double) item_weight));
 
 	// this branch can be cut off if its value is not up to the best
 	if (best_until_now >= best_price + 1) {
