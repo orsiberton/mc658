@@ -86,7 +86,7 @@ int read_knapsack(string input_file){
 }
 
 int show_usage(){
-	cout << "Uso: ./knapsack -i <input_file> [ -bt | -bb ] -t <max_time>"  << endl 
+	cout << "Uso: ./knapsack -i <input_file> [ -bt | -bb ] -t <max_time>"  << endl
 	     << "onde -bt indica backtracking e -bb indica branch-and-bound. max_time eh o tempo maximo de execucao." << endl;
 	return 0;
 }
@@ -106,7 +106,7 @@ bool is_feasible_solution(){
 	set<int> nc;
 	int weight = 0;
 	for(int i=0; i<n; i++){
-		if ( sol[i] == 1) 
+		if ( sol[i] == 1)
 			nc.insert(c[i]);
 		weight += (w[i]*sol[i]);
 	}

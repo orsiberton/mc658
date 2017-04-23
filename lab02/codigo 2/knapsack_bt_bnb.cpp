@@ -4,7 +4,7 @@
  * PED: Edson Ticona Zegarra
  ******************************************************/
 #include "knapsack.h"
-
+#include<ctime>
 ///Preencher aqui para facilitar a correcao.
 // Nome1: Bruno Orsi Berton
 // RA1: 150573
@@ -14,6 +14,8 @@
 vector<int> original_item_index;
 vector<int> items;
 int best_price;
+int timeout_limit;
+clock_t begin_clock;
 
 int partition(vector<int>& P, vector<int>& W, vector<int>& C, int left, int right, float who) {
   for (int i = left; i < right; i++) {
@@ -92,6 +94,13 @@ void backtracking(int index, int current_weight, int current_value, int max_weig
 	// solution without item n
 	current_items.pop_back();
 	backtracking(index + 1, current_weight, current_value, max_weight, d, p, w, c, current_items);
+
+	// exit the code because of timeout
+	clock_t end = clock();
+	double elapsed_secs = double(end - begin_clock) / CLOCKS_PER_SEC;
+	if (elapsed_secs > timeout_limit) {
+		throw elapsed_secs;
+	}
 }
 
 void branch_and_bound(int index, int current_weight, int current_value, int max_weight, int d, vector<int> &p, vector<int> &w, vector<int> &c, vector<int> current_items) {
@@ -132,14 +141,23 @@ void branch_and_bound(int index, int current_weight, int current_value, int max_
 
 	// solution without item n
 	branch_and_bound(index + 1, current_weight, current_value, max_weight, d, p, w, c, current_items);
+
+	// exit the code because of timeout
+	clock_t end = clock();
+	double elapsed_secs = double(end - begin_clock) / CLOCKS_PER_SEC;
+	if (elapsed_secs > timeout_limit) {
+		throw elapsed_secs;
+	}
 }
 
 ///
 // Bactracking function:
 ///
 bool bt(int n, int d, int B, vector<int> &p, vector<int> &w, vector<int> &c, vector<int> &sol, int t) {
-	// TODO t é timeout
-	// TODO fazer timeout
+	// start clock
+	begin_clock = clock();
+	timeout_limit = t;
+
 	best_price = -1;
 	vector<int> temp_items;
 	// copy vector for sort price/weight
@@ -156,8 +174,13 @@ bool bt(int n, int d, int B, vector<int> &p, vector<int> &w, vector<int> &c, vec
 	// sort based on price/weight
 	qsort(p_copy, w_copy, c_copy, 0, p.size());
 
-	// do the magic
-	backtracking(0, 0, 0, B, d, p_copy, w_copy, c_copy, temp_items);
+	try {
+		// do the magic
+		backtracking(0, 0, 0, B, d, p_copy, w_copy, c_copy, temp_items);
+	} catch (double timeout) {
+		passed = false;
+		printf("timeout\n");
+	}
 
 	// save solution
 	for (int i = 0; i < items.size(); i++) {
@@ -171,8 +194,10 @@ bool bt(int n, int d, int B, vector<int> &p, vector<int> &w, vector<int> &c, vec
 // Branch and Bound function
 ///
 bool bnb(int n, int d, int B, vector<int> &p, vector<int> &w, vector<int> &c, vector<int> &sol, int t) {
-	// TODO t é timeout
-	// TODO fazer timeout
+	// start clock
+	begin_clock = clock();
+	timeout_limit = t;
+
 	best_price = -1;
 	vector<int> temp_items;
 	// copy vector for sort price/weight
@@ -189,8 +214,13 @@ bool bnb(int n, int d, int B, vector<int> &p, vector<int> &w, vector<int> &c, ve
 	// sort based on price/weight
 	qsort(p_copy, w_copy, c_copy, 0, p.size());
 
-	// do the magic
-	branch_and_bound(0, 0, 0, B, d, p_copy, w_copy, c_copy, temp_items);
+	try {
+		// do the magic
+		branch_and_bound(0, 0, 0, B, d, p_copy, w_copy, c_copy, temp_items);
+	} catch (double timeout) {
+		passed = false;
+		printf("timeout\n");
+	}
 
 	// save solution
 	for (int i = 0; i < items.size(); i++) {
