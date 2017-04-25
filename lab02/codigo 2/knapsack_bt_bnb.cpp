@@ -187,6 +187,9 @@ bool bt(int n, int d, int B, vector<int> &p, vector<int> &w, vector<int> &c, vec
 		sol[original_item_index[items[i]]] = 1;
 	}
 
+  // print best price
+  printf("best: %d\n", best_price);
+
 	return passed;
 }
 
@@ -226,6 +229,9 @@ bool bnb(int n, int d, int B, vector<int> &p, vector<int> &w, vector<int> &c, ve
 	for (int i = 0; i < items.size(); i++) {
 		sol[original_item_index[items[i]]] = 1;
 	}
+
+  // print best price
+  printf("best: %d\n", best_price);
 
 	return passed;
 }
