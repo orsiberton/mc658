@@ -8,8 +8,8 @@
 ///Preencher aqui para facilitar a correcao.
 // Nome1: Bruno Orsi Berton
 // RA1: 150573
-// Nome2:
-// RA2:
+// Nome2: Fabio Takahashi Tanniguchi
+// RA2: 145980
 
 vector<int> original_item_index;
 vector<int> items;
