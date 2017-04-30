@@ -74,7 +74,7 @@ void backtracking(int index, int current_weight, int current_value, int max_weig
 			items.clear();
 		}
 		// copy vector currentItems to items
-		move(current_items.begin(), current_items.end(), back_inserter(items));
+		copy(current_items.begin(), current_items.end(), back_inserter(items));
 	}
 
 	if (index == p.size()) {
@@ -114,7 +114,7 @@ void branch_and_bound(int index, int current_weight, int current_value, int max_
 			items.clear();
 		}
 		// copy vector currentItems to items
-		move(current_items.begin(), current_items.end(), back_inserter(items));
+		copy(current_items.begin(), current_items.end(), back_inserter(items));
 	}
 
 	if (index == p.size()) {
