@@ -15,7 +15,7 @@
 // PL function
 ///
 bool pl(ListBpGraph& g, ListBpGraph::EdgeMap<int> &c, ListBpGraph::NodeMap<int> &v, ListBpGraph::EdgeMap<int> &sol, int tMax){
-	// LEMBRETE: terminal azul, roteador vermelho
+	// LEMBRETE: roteador azul,  terminal vermelho
 	
 	try {
 		GRBEnv env = GRBEnv();
